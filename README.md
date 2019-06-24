@@ -1,2 +1,2 @@
-# xdm
+# XDM
 A Storage Access Framework compatible download manager for Xamarin Android
