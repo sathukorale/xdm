@@ -143,15 +143,11 @@ namespace xdm
 
         private DownloadManager() { }
 
-        public void Configure(DownloadManagerConfiguration configuration)
+        public void Initialize(DownloadManagerConfiguration configuration)
         {
             _configuration = configuration;
-            DownloadDetailsCache.Instance.Configure(configuration);
-        }
 
-        public void Restore()
-        {
-            CheckWhetherDownloadManagerIsConfigured();
+            DownloadDetailsCache.Instance.Configure(configuration);
             DownloadDetailsCache.Instance.Restore();
         }
 
