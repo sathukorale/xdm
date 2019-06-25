@@ -135,8 +135,8 @@ namespace xdm
         public event ProgressChangedEventHandler OnDownloadProgressChanged;
         public event EventHandler<DownloadDetails> OnDownloadCompleted;
         public event EventHandler<DownloadDetails> OnDownloadStopped;
-        public event EventHandler<DownloadDetails> OnDownloadsResumed;
-        public event EventHandler<DownloadDetails> OnDownloadsRemoved;
+        public event EventHandler<DownloadDetails> OnDownloadResumed;
+        public event EventHandler<DownloadDetails> OnDownloadRemoved;
         public event EventHandler<System.Exception> OnOpenRequestError; 
 
         private DownloadManagerConfiguration _configuration;
@@ -189,7 +189,7 @@ namespace xdm
                 downloadDetails.UpdateStatus(DownloadDetails.Status.Pending);
                 DownloadTaskCache.Instance.ResumeDownloadTask(_configuration, downloadDetails);
 
-                OnDownloadsResumed?.Invoke(this, downloadDetails);
+                OnDownloadResumed?.Invoke(this, downloadDetails);
             }
         }
 
@@ -203,7 +203,7 @@ namespace xdm
                 DownloadTaskCache.Instance.StopDownload(downloadDetails);
                 DownloadDetailsCache.Instance.RemoveDownloadDetails(downloadId);
 
-                OnDownloadsRemoved?.Invoke(this, downloadDetails);
+                OnDownloadRemoved?.Invoke(this, downloadDetails);
             }
         }
 
