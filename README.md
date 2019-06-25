@@ -1,4 +1,4 @@
-# XDM
+# XDM ([![Build status](https://build.appcenter.ms/v0.1/apps/6d2f04d7-432b-4359-b59c-b5bc37394be5/branches/master/badge)](https://appcenter.ms))
 A Storage Access Framework compatible download manager for Xamarin Android
 
 ## Using the Library
