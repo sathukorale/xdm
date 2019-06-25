@@ -134,7 +134,7 @@ namespace xdm
         public event ErrorOccurredEventHandler OnDownloadErrorOccurred;
         public event ProgressChangedEventHandler OnDownloadProgressChanged;
         public event EventHandler<DownloadDetails> OnDownloadCompleted;
-        public event EventHandler<DownloadDetails> OnDownloadsStopped;
+        public event EventHandler<DownloadDetails> OnDownloadStopped;
         public event EventHandler<DownloadDetails> OnDownloadsResumed;
         public event EventHandler<DownloadDetails> OnDownloadsRemoved;
         public event EventHandler<System.Exception> OnOpenRequestError; 
@@ -175,7 +175,7 @@ namespace xdm
                 downloadDetails.UpdateStatus(DownloadDetails.Status.Paused);
                 DownloadTaskCache.Instance.StopDownload(downloadDetails);
 
-                OnDownloadsStopped?.Invoke(this, downloadDetails);
+                OnDownloadStopped?.Invoke(this, downloadDetails);
             }
         }
 
