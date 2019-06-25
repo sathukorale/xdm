@@ -170,6 +170,9 @@ namespace xdm
                 }
                 catch { /* IGNORED */ }
 
+                downloadDetails.CurrentProgress.Update(downloadedSize, totalFileSize);
+                DownloadManager.Instance.TriggerDownloadProgressChangedEvent(downloadDetails, downloadedSize, totalFileSize);
+
                 if (downloadedSize == totalFileSize)
                     DownloadManager.Instance.TriggerDownloadCompletedEvent(downloadDetails);
                 else

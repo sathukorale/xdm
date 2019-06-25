@@ -40,12 +40,12 @@
 				android:layout_height="match_parent"
 				android:layout_width="5dip"/>
 			<Button 
-				android:id="@+id/btnStart"
+				android:id="@+id/btnStartOrStop"
 				android:layout_width="wrap_content"
 				android:layout_height="40dip"
 				android:text="START"/>
 			<Button 
-				android:id="@+id/btnCancel"
+				android:id="@+id/btnResume"
 				android:layout_width="wrap_content"
 				android:layout_height="40dip"
 				android:text="RESUME"/>

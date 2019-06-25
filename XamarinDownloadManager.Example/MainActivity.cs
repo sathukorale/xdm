@@ -24,7 +24,7 @@ namespace XamarinDownloadManager.Example
         private TextView _lblFileName;
         private TextView _lblProgress;
         private Button _btnStartStop;
-        private Button _btnCancel;
+        private Button _btnResume;
         private ProgressBar _progress;
 
         private int _previousDownloadId = -1;
@@ -40,10 +40,11 @@ namespace XamarinDownloadManager.Example
             _progress = FindViewById<ProgressBar>(Resource.Id.prgStatus);
             _lblFileName = FindViewById<TextView>(Resource.Id.lblFileName);
             _lblProgress = FindViewById<TextView>(Resource.Id.lblProgress);
-            _btnStartStop = FindViewById<Button>(Resource.Id.btnStart);
-            _btnCancel = FindViewById<Button>(Resource.Id.btnCancel);
+            _btnStartStop = FindViewById<Button>(Resource.Id.btnStartOrStop);
+            _btnResume = FindViewById<Button>(Resource.Id.btnResume);
 
             _btnStartStop.Click += BtnStartStop_OnClick;
+            _btnResume.Click += BtnResumeOnClick;
 
             var configuration = DownloadManagerConfiguration.Create(this, this);
             DownloadManager.Instance.Initialize(configuration);
@@ -54,7 +55,7 @@ namespace XamarinDownloadManager.Example
             DownloadManager.Instance.OnDownloadErrorOccurred += DownloadManager_OnDownloadErrorOccurred;
             DownloadManager.Instance.OnDownloadCompleted += DownloadManager_OnDownloadCompleted;
 
-            _btnCancel.Visibility = ViewStates.Gone;
+            _btnResume.Visibility = ViewStates.Gone;
         }
 
         #region "Handling Download Manager Events"
@@ -65,7 +66,7 @@ namespace XamarinDownloadManager.Example
                 _lblFileName.Text = downloadDetails.FileName;
                 _lblProgress.Text = "";
                 _btnStartStop.Enabled = true;
-                _btnCancel.Visibility = ViewStates.Visible;
+                _btnResume.Visibility = ViewStates.Gone;
                 _progress.Indeterminate = false;
                 _progress.Progress = 0;
                 _btnStartStop.Text = "STOP";
@@ -78,7 +79,7 @@ namespace XamarinDownloadManager.Example
             {
                 _btnStartStop.Text = "START";
                 _btnStartStop.Enabled = true;
-                _btnCancel.Visibility = ViewStates.Gone;
+                _btnResume.Visibility = ViewStates.Visible;
             });
         }
 
@@ -104,7 +105,7 @@ namespace XamarinDownloadManager.Example
 
                 _btnStartStop.Enabled = true;
                 _btnStartStop.Text = "START";
-                _btnCancel.Visibility = ViewStates.Gone;
+                _btnResume.Visibility = ViewStates.Visible;
             });
         }
 
@@ -113,13 +114,11 @@ namespace XamarinDownloadManager.Example
             RunOnUiThread(() =>
             {
                 _lblFileName.Text = downloadDetails.FileName;
-                _lblProgress.Text = "100%";
-                _progress.Progress = 100;
                 _progress.Indeterminate = false;
 
                 _btnStartStop.Enabled = true;
                 _btnStartStop.Text = "START";
-                _btnCancel.Visibility = ViewStates.Gone;
+                _btnResume.Visibility = ViewStates.Gone;
             });
         }
         #endregion
@@ -144,6 +143,11 @@ namespace XamarinDownloadManager.Example
             {
                 DownloadManager.Instance.Pause(_previousDownloadId);
             }
+        }
+
+        private void BtnResumeOnClick(object sender, EventArgs e)
+        {
+            DownloadManager.Instance.Resume(_previousDownloadId);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

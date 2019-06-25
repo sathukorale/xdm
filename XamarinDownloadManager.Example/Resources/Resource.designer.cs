@@ -2561,10 +2561,10 @@ namespace XamarinDownloadManager.Example
 			public const int bottom = 2131296317;
 			
 			// aapt resource value: 0x7f09008f
-			public const int btnCancel = 2131296399;
+			public const int btnResume = 2131296399;
 			
 			// aapt resource value: 0x7f09008e
-			public const int btnStart = 2131296398;
+			public const int btnStartOrStop = 2131296398;
 			
 			// aapt resource value: 0x7f090063
 			public const int buttonPanel = 2131296355;
