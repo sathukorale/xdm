@@ -57,6 +57,7 @@ namespace XamarinDownloadManager.Example
             _btnCancel.Visibility = ViewStates.Gone;
         }
 
+        #region "Handling Download Manager Events"
         private void DownloadManager_OnDownloadStarted(object sender, DownloadDetails downloadDetails, long fileSize)
         {
             RunOnUiThread(() =>
@@ -96,6 +97,11 @@ namespace XamarinDownloadManager.Example
         {
             RunOnUiThread(() =>
             {
+                _lblFileName.Text = downloadDetails.FileName;
+                _lblProgress.Text = "0%";
+                _progress.Progress = 0;
+                _progress.Indeterminate = false;
+
                 _btnStartStop.Enabled = true;
                 _btnStartStop.Text = "START";
                 _btnCancel.Visibility = ViewStates.Gone;
@@ -109,12 +115,14 @@ namespace XamarinDownloadManager.Example
                 _lblFileName.Text = downloadDetails.FileName;
                 _lblProgress.Text = "100%";
                 _progress.Progress = 100;
+                _progress.Indeterminate = false;
 
                 _btnStartStop.Enabled = true;
                 _btnStartStop.Text = "START";
                 _btnCancel.Visibility = ViewStates.Gone;
             });
         }
+        #endregion
 
         private void BtnStartStop_OnClick(object sender, EventArgs e)
         {
