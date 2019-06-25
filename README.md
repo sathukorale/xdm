@@ -4,7 +4,7 @@ A Storage Access Framework compatible download manager for Xamarin Android
 ## Using the Library
 First off, you need to configure the download manager. You can do so by creating a `DownloadManagerConfiguration` and passing that value to the `DownloadManager.Instance.Initialize` method.
 
-```
+```csharp
 var configuration = DownloadManagerConfiguration.Create(this, this);
 DownloadManager.Instance.Initialize(configuration);
 ```
@@ -24,7 +24,7 @@ The rest is pretty easy. Use the following methods to control downloads
 ## StoragePermissionsHandler.ICallback
 When handling with the Storage Access Framework, the developer is expected to prompt the user for approval when accessing external files. As such, we have to do the same. However doing so within the library feels wrong, and since there is no obvious way of retrieving the approval result, we expect the developer implement this part of the task. The following code segments include a simple example.
 
-```
+```csharp
 public void OnStoragePermissionsRequested(StoragePermissionsHandler.StoragePermissionsDetail.Request request)
 {
     RunOnUiThread(() =>
