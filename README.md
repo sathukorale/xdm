@@ -22,7 +22,7 @@ The rest is pretty easy. Use the following methods to control downloads
 - `DownloadManager.Instance.OpenFile`. Thought I should include this as well, since there is a high chance that you might need this as well.
 
 ## StoragePermissionsHandler.ICallback
-When dealing with the [Storage Access Framework](http://www.androiddocs.com/guide/topics/providers/document-provider.html), the developer is expected to prompt the user for approval when accessing external files. As such, we have to do the same. However doing so within the library feels wrong, and since there is no obvious way of retrieving the approval result, we expect the developer implement this part of the task. Perhaps this code may go into the library itself someday, but for the moment you have to do this. The following code segments include a simple example.
+When dealing with the [Storage Access Framework](http://www.androiddocs.com/guide/topics/providers/document-provider.html), the developer is expected to prompt the user for approval when accessing external files. As such, we have to do the same. However doing so within the library feels wrong, and since there is no obvious way of retrieving the approval result, we expect the developer implement this part of the task. Perhaps this code may go into the library itself someday, but for the moment you have to do this. The following code segments includes a simple example.
 
 ```csharp
 public void OnStoragePermissionsRequested(StoragePermissionsHandler.StoragePermissionsDetail.Request request)
