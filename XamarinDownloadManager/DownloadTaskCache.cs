@@ -42,6 +42,7 @@ namespace xdm
     internal class DownloadTaskCache
     {
         private static readonly object LockFile = new object();
+        private static readonly object PermissionRequestSynchronizer = new object();
 
         private static DownloadTaskCache _instance;
         public static DownloadTaskCache Instance => _instance ?? (_instance = new DownloadTaskCache());
@@ -91,6 +92,14 @@ namespace xdm
             }
         }
 
+        private DocumentFile RequestStoragePermission(DownloadManagerConfiguration configuration, string rootDirectory)
+        {
+            lock (PermissionRequestSynchronizer)
+            {
+                return configuration.StoragePermissionsHandler.RequestStoragePermission(rootDirectory);
+            }
+        }
+
         private void OnDownloadTaskStarted(Object objDetails)
         {
             if (!(objDetails is object[] objects) || objects.Length < 3)
@@ -116,7 +125,7 @@ namespace xdm
                     throw new DownloadManager.Exception(DownloadManager.Exception.Type.FileNotFound, $"Could not locate the root directory for the download location, '{downloadDetails.DownloadDirectory}'.");
                 }
 
-                var rootDirectoryDocument = configuration.StoragePermissionsHandler.RequestStoragePermission(rootDirectory);
+                var rootDirectoryDocument = RequestStoragePermission(configuration, rootDirectory);
                 var rootDetails = new DownloadDetails.RootDirectoryDetails(rootDirectory, rootDirectoryDocument);
                 var downloadingFile = CreateFile(downloadDetails, rootDetails, useExistingFile);
                 var downloadedSize = downloadingFile.Length();
