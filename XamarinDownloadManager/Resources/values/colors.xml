@@ -13,6 +13,7 @@
   <item name="putIoButtonDarkerRed" type="color">#9d1c51</item>
   <item name="putIoButtonDarkestGreen" type="color">#008000</item>
   <item name="justWhite" type="color">#FFFFFF</item>
+  <item name="justLightGray" type="color">#A0A0A0</item>
   <item name="justGray" type="color">#C0C0C0</item>
   <item name="justDarkGray" type="color">#707070</item>
   <item name="justDarkerGray" type="color">#505050</item>

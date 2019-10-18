@@ -79,7 +79,7 @@ namespace xdm
             configuration.SetTitleViewId(Resource.Id.lblDownloadNotificationTitle);
             configuration.SetTotalFileSizeViewId(Resource.Id.lblDownloadNotificationTotalSize);
             configuration.SetProgressBarViewId(Resource.Id.prgDownloadNotificationStatus);
-            configuration.SetProgressTextViewId(Resource.Id.lblDownloadNotificationAdditionalDetails);
+            configuration.SetProgressTextViewId(Resource.Id.lblDownloadProgressText);
 
             return configuration;
         }
@@ -128,6 +128,7 @@ namespace xdm
 
             _notificationRemoteViews = notificationRemoteView;
             _notification = notificationBuilder.Build();
+
             _notification.Flags |= NotificationFlags.NoClear | NotificationFlags.OngoingEvent;
         }
 
@@ -164,11 +165,11 @@ namespace xdm
             if (_configuration.NotificationProgressBarViewId != null)
                 notificationRemoteViews.SetProgressBar(_configuration.NotificationProgressBarViewId.Value, 100, (int)progress, false);
 
-            if (_configuration.NotificationTotalFileSizeViewId != null && totalSize > 0)
-                notificationRemoteViews.SetTextViewText(_configuration.NotificationTotalFileSizeViewId.Value, ToHumanReadableSize(downloadedSize));
-
             if (_configuration.NotificationDownloadedFileSizeViewId != null && totalSize > 0)
-                notificationRemoteViews.SetTextViewText(_configuration.NotificationDownloadedFileSizeViewId.Value, ToHumanReadableSize(totalSize));
+                notificationRemoteViews.SetTextViewText(_configuration.NotificationDownloadedFileSizeViewId.Value, ToHumanReadableSize(downloadedSize));
+
+            if (_configuration.NotificationTotalFileSizeViewId != null && totalSize > 0)
+                notificationRemoteViews.SetTextViewText(_configuration.NotificationTotalFileSizeViewId.Value, ToHumanReadableSize(totalSize));
 
             _notificationId = _notificationId ?? GetNextNotificationId();
             notificationManager.Notify(_notificationId ?? 0, notification);

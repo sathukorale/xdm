@@ -205,8 +205,10 @@ namespace xdm
             {
                 DownloadManager.Instance.TriggerDownloadErrorOccurredEvent(downloadDetails, new DownloadManager.Exception(DownloadManager.Exception.Type.Unknown, e));
             }
-
-            notificationHelper?.RemoveNotification();
+            finally
+            {
+                notificationHelper?.RemoveNotification();
+            }
         }
     }
 }
