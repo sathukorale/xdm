@@ -22,13 +22,18 @@ namespace xdm
         public int? NotificationProgressBarViewId { get; internal set; }
         public int? NotificationTotalFileSizeViewId { get; internal set; }
         public int? NotificationDownloadedFileSizeViewId { get; internal set; }
-        public NotificationChannel NotificationChannel { get; internal set; }
+        internal NotificationChannelDetails NotificationChannelDetails { get; set; }
 
-        public NotificationConfiguration(Context context, int notificationLayoutId)
+        public NotificationConfiguration(int notificationLayoutId)
+        {
+            NotificationLayoutId = notificationLayoutId;
+            NotificationChannelDetails = new NotificationChannelDetails("xdm.downloadmanager.service", "Download Service", NotificationImportance.Low);
+        }
+
+        internal NotificationConfiguration SetContext(Context context)
         {
             Context = context;
-            NotificationLayoutId = notificationLayoutId;
-            NotificationChannel = new NotificationChannel("xdm.downloadmanager.service", "Download Service", NotificationImportance.Low);
+            return this;
         }
 
         public NotificationConfiguration SetTitleViewId(int titleViewId)
@@ -63,13 +68,13 @@ namespace xdm
 
         public NotificationConfiguration SetNotificationChannelDetails(string channelId, string channelName, NotificationImportance notificationImportance)
         {
-            NotificationChannel = new NotificationChannel(channelId, channelName, notificationImportance);
+            NotificationChannelDetails = new NotificationChannelDetails(channelId, channelName, notificationImportance);
             return this;
         }
 
-        public static NotificationConfiguration GetDefaultConfiguration(Context context)
+        public static NotificationConfiguration GetDefaultConfiguration()
         {
-            var configuration = new NotificationConfiguration(context, Resource.Layout.NotificationDownloadProgress);
+            var configuration = new NotificationConfiguration(Resource.Layout.NotificationDownloadProgress);
 
             configuration.SetTitleViewId(Resource.Id.lblDownloadNotificationTitle);
             configuration.SetTotalFileSizeViewId(Resource.Id.lblDownloadNotificationTotalSize);
@@ -112,10 +117,11 @@ namespace xdm
         {
             if (_configuration.NotificationLayoutId == null) throw new Exception("The notification layout hasn't been setup.");
 
+            var notificationChannelId = NotificationChannelManager.Instance.GetNotificationChannel(_configuration.NotificationChannelDetails);
             var context = _configuration.Context;
             var notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
             var notificationRemoteView = new RemoteViews(context.PackageName, _configuration.NotificationLayoutId ?? 0);
-            var notificationBuilder = new NotificationCompat.Builder(context, _configuration.NotificationChannel.Id);
+            var notificationBuilder = new NotificationCompat.Builder(context, notificationChannelId);
 
             notificationBuilder.SetCustomContentView(notificationRemoteView);
             notificationBuilder.SetSmallIcon(Resource.Drawable.ImgDownloadService);

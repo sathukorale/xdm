@@ -25,7 +25,7 @@ namespace xdm
         public DownloadManagerConfiguration EnableNotifications(NotificationConfiguration notificationSettings)
         {
             IsNotificationsEnabled = true;
-            NotificationSettings = notificationSettings;
+            NotificationSettings = notificationSettings.SetContext(Context);
 
             return this;
         }
@@ -166,6 +166,7 @@ namespace xdm
         {
             _configuration = configuration;
 
+            NotificationChannelManager.Instance.Configure(_configuration.Context);
             DownloadDetailsCache.Instance.Configure(configuration);
             DownloadDetailsCache.Instance.Restore();
         }

@@ -48,6 +48,7 @@
     <Compile Include="DownloadDetails.cs" />
     <Compile Include="DownloadManager.cs" />
     <Compile Include="DownloadTaskCache.cs" />
+    <Compile Include="NotificationChannelManager.cs" />
     <Compile Include="NotificationConfiguration.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

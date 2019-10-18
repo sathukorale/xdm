@@ -47,7 +47,7 @@ namespace XamarinDownloadManager.Example
             _btnResume.Click += BtnResumeOnClick;
 
             var configuration = DownloadManagerConfiguration.Create(this, this);
-            configuration.EnableNotifications(NotificationConfiguration.GetDefaultConfiguration(this));
+            configuration.EnableNotifications(NotificationConfiguration.GetDefaultConfiguration());
 
             DownloadManager.Instance.Initialize(configuration);
 

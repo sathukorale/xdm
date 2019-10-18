@@ -111,6 +111,7 @@ namespace xdm
             var configuration = objects[0] as DownloadManagerConfiguration;
             var downloadDetails = objects[1] as DownloadDetails;
             var useExistingFile = (bool)objects[2];
+            var notificationHelper = configuration.NotificationSettings == null ? null : new NotificationHelper(configuration.NotificationSettings);
 
             if (configuration == null || downloadDetails == null)
             {
@@ -129,7 +130,6 @@ namespace xdm
                 var rootDetails = new DownloadDetails.RootDirectoryDetails(rootDirectory, rootDirectoryDocument);
                 var downloadingFile = CreateFile(downloadDetails, rootDetails, useExistingFile);
                 var downloadedSize = downloadingFile.Length();
-                var notificationHelper = configuration.NotificationSettings == null ? null : new NotificationHelper(configuration.NotificationSettings);
 
                 notificationHelper?.UpdateNotification(downloadDetails.FileName);
 
@@ -185,8 +185,6 @@ namespace xdm
                 }
                 catch { /* IGNORED */ }
 
-                notificationHelper?.RemoveNotification();
-
                 downloadDetails.CurrentProgress.Update(downloadedSize, totalFileSize);
                 DownloadManager.Instance.TriggerDownloadProgressChangedEvent(downloadDetails, downloadedSize, totalFileSize);
 
@@ -207,6 +205,8 @@ namespace xdm
             {
                 DownloadManager.Instance.TriggerDownloadErrorOccurredEvent(downloadDetails, new DownloadManager.Exception(DownloadManager.Exception.Type.Unknown, e));
             }
+
+            notificationHelper?.RemoveNotification();
         }
     }
 }
