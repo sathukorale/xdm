@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:orientation="horizontal" 
+	android:layout_width="match_parent" 
+	android:layout_height="match_parent"
+	android:background="@color/justWhite">
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:paddingTop="7dp"
+		android:paddingRight="7dp"
+		android:paddingBottom="7dp">
+		<LinearLayout
+			android:orientation="horizontal" 
+			android:layout_width="match_parent" 
+			android:layout_height="wrap_content">
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_weight="1"
+				android:layout_width="match_parent" 
+				android:layout_height="wrap_content">
+				<TextView 
+					android:id="@+id/lblDownloadNotificationTitle"
+					android:textColor="#000000"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="sample_text" 
+					android:textSize="14sp"/>
+				<TextView 
+					android:id="@+id/lblDownloadNotificationAdditionalDetails"
+					android:textColor="@color/justDarkGray"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="11sp"
+					android:text="Might take around 7 minutes."/>
+			</LinearLayout>
+			<TextView 
+				android:id="@+id/lblDownloadNotificationTotalSize"
+				android:textColor="@color/justDarkGray"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="999MB" 
+				android:textSize="22sp"/>
+		</LinearLayout>
+		<LinearLayout 
+			android:layout_width="match_parent"
+			android:layout_height="10dp"
+			android:layout_weight="1" />
+		<ProgressBar
+			android:id="@+id/prgDownloadNotificationStatus" 
+			style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+			android:indeterminate="false" 
+			android:indeterminateOnly="false"
+			android:layout_width="match_parent"
+			android:layout_height="12dp"
+			android:minHeight="12dp" />
+	</LinearLayout>
+</LinearLayout>

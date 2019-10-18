@@ -129,6 +129,9 @@ namespace xdm
                 var rootDetails = new DownloadDetails.RootDirectoryDetails(rootDirectory, rootDirectoryDocument);
                 var downloadingFile = CreateFile(downloadDetails, rootDetails, useExistingFile);
                 var downloadedSize = downloadingFile.Length();
+                var notificationHelper = configuration.NotificationSettings == null ? null : new NotificationHelper(configuration.NotificationSettings);
+
+                notificationHelper?.UpdateNotification(downloadDetails.FileName);
 
                 var stream = HttpUtilities.GetDownloadStream(downloadDetails.Url, downloadedSize, out var totalFileSize);
 
@@ -139,11 +142,13 @@ namespace xdm
 
                 if (StorageUtils.CheckSpaceAvailable(configuration.Context, rootDetails, totalFileSize - downloadedSize) == false)
                 {
+                    notificationHelper?.RemoveNotification();
                     throw new DownloadManager.Exception(DownloadManager.Exception.Type.InsufficientSpace);
                 }
 
                 if (downloadedSize == totalFileSize)
                 {
+                    notificationHelper?.RemoveNotification();
                     DownloadManager.Instance.TriggerDownloadCompletedEvent(downloadDetails);
                     return;
                 }
@@ -168,6 +173,7 @@ namespace xdm
                     if (reportingProgress >= reportingThreshold)
                     {
                         reportingProgress = 0;
+                        notificationHelper?.UpdateNotification(downloadDetails.FileName, downloadedSize, totalFileSize);
                         DownloadManager.Instance.TriggerDownloadProgressChangedEvent(downloadDetails, downloadedSize, totalFileSize);
                     }
                 }
@@ -178,6 +184,8 @@ namespace xdm
                     stream.Close();
                 }
                 catch { /* IGNORED */ }
+
+                notificationHelper?.RemoveNotification();
 
                 downloadDetails.CurrentProgress.Update(downloadedSize, totalFileSize);
                 DownloadManager.Instance.TriggerDownloadProgressChangedEvent(downloadDetails, downloadedSize, totalFileSize);

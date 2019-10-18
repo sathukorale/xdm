@@ -47,6 +47,8 @@ namespace XamarinDownloadManager.Example
             _btnResume.Click += BtnResumeOnClick;
 
             var configuration = DownloadManagerConfiguration.Create(this, this);
+            configuration.EnableNotifications(NotificationConfiguration.GetDefaultConfiguration(this));
+
             DownloadManager.Instance.Initialize(configuration);
 
             DownloadManager.Instance.OnDownloadStarted += DownloadManager_OnDownloadStarted;
@@ -147,6 +149,10 @@ namespace XamarinDownloadManager.Example
 
         private void BtnResumeOnClick(object sender, EventArgs e)
         {
+            _lblProgress.Text = "";
+            _btnStartStop.Enabled = false;
+            _progress.Indeterminate = true;
+
             DownloadManager.Instance.Resume(_previousDownloadId);
         }
 

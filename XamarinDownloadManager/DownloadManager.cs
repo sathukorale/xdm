@@ -10,13 +10,32 @@ namespace xdm
 {
     public class DownloadManagerConfiguration
     {
-        public Context Context;
-        public StoragePermissionsHandler StoragePermissionsHandler;
+        public readonly Context Context;
+        public readonly StoragePermissionsHandler StoragePermissionsHandler;
+
+        public bool IsNotificationsEnabled { get; internal set; }
+        public NotificationConfiguration NotificationSettings { get; internal set; }
 
         private DownloadManagerConfiguration(Context context, StoragePermissionsHandler.ICallback storagePermissionsHandler)
         {
             Context = context;
             StoragePermissionsHandler = new StoragePermissionsHandler(storagePermissionsHandler);
+        }
+
+        public DownloadManagerConfiguration EnableNotifications(NotificationConfiguration notificationSettings)
+        {
+            IsNotificationsEnabled = true;
+            NotificationSettings = notificationSettings;
+
+            return this;
+        }
+
+        public DownloadManagerConfiguration DisableNotifications()
+        {
+            IsNotificationsEnabled = false;
+            NotificationSettings = null;
+
+            return this;
         }
 
         public static DownloadManagerConfiguration Create(Context context, StoragePermissionsHandler.ICallback storagePermissionsHandler)
