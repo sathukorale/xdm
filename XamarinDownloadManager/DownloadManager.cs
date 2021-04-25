@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Android.Content;
+using AndroidX.DocumentFile.Provider;
 using xdm.utilities;
-using DocumentFile = Android.Support.V4.Provider.DocumentFile;
 
 namespace xdm
 {

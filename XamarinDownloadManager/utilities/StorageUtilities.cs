@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Android.Content;
-using Android.Support.V4.Content;
 using Android.Systems;
+using AndroidX.Core.Content;
 
 namespace xdm.utilities
 {
