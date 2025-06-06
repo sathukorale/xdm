@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Android.App;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
@@ -26,3 +27,6 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: Application(Icon = "@drawable/IcoPutIo", UsesCleartextTraffic = true)]
+[assembly: MetaData("com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME", Value = "putio.client.android.CustomCastOptionsProvider")]
+[assembly: MetaData("android.support.PARENT_ACTIVITY", Value = "putio.client.android.CustomExpandedControllerActivity")]

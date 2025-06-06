@@ -4,7 +4,7 @@ namespace xdm.utilities
 {
     public class DatabaseConnectionManager
     {
-        public static readonly string DatabaseFileLocation = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "download_details.sqlite");
+        public static readonly string DatabaseFileLocation = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "download_details.sqlite");
 
         public static SQLiteConnection GetConnection()
         {
